@@ -1,0 +1,29 @@
+﻿body {
+}
+#chat {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+#contenido {
+    width: 100%;
+
+}
+#mensajes {
+    width: 70%;
+    height: 600px;
+    overflow:scroll;
+    float: left;
+}
+#usuarios {
+    width: 25%;
+    height: 600px;
+    overflow:scroll;
+    float: right;
+}
+#barraMensajes {
+    width: 100%;
+}
+#mensaje {
+    width: 90%;
+}
