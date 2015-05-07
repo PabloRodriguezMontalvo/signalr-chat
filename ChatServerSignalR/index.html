@@ -2,13 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
+    <link href="css/estilo.css" rel="stylesheet"/>
+    <link href="Scripts/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet" />
+
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="Scripts/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+   <script src="/signalr/hubs"></script>
+    <script src="Scripts/michat.js"></script>
 </head>
 <body>
 <div id="chat">
     <div id="titulo">Super luis chat</div>
     <div id="contenido">
         <div id="mensajes"></div>
-        <div id="usuarios"></div>
+        <div id="usuarios"><ul id="conectados"></ul></div>
     </div>
     <div id="barraMensajes">
         <input type="text" id="mensaje"/>
