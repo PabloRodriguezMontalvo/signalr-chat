@@ -1,12 +1,16 @@
 ﻿var chatHub;
 var miNombre;
+var nPrivado;
 $(document).ready(function () {
     chatHub = $.connection.chatHub;
+
    
-   
-    $("#login").dialog({
+
+    $("#dialogoPrivado").dialog({
         modal: true
+
     });
+    
     registrarEventos();
 
     $.connection.hub.start().done(function() {
@@ -29,16 +33,26 @@ function registrarLlamadas() {
         $("#mensaje").val("");
     });
 
+    $("#btnEnviarPrivado").click(function() {
+        var texto = $("#txtPrivado").val();
+        chatHub.server.enviarMensajePrivado(nPrivado, texto);
+
+    });
 
 }
 
-
+function privado(id) {
+    nPrivado = $("#usuario-" + id).html();
+    $("#dialogoPrivado").dialog();
+    $("#mensajesPrivado").html("");
+}
 function registrarEventos() {
 
     chatHub.client.onConnected = function(id, nombre, usuarios, mensajes) {
         for (var i = 0; i < usuarios.length; i++) {
             if(usuarios[i].Nombre!=miNombre)
-                $("#usuarios").append("<li id='usuario-" + usuarios[i].Id + "'>" +
+                $("#usuarios").append("<li id='usuario-" + usuarios[i].Id +
+                    "' onclick='privado(\""+usuarios[i].Id+"\")'>" +
                     usuarios[i].Nombre + "</li>");
         }
         for (var j = 0; j < mensajes.length; j++) {
@@ -46,11 +60,12 @@ function registrarEventos() {
                 " dice " + mensajes[j].Contenido + "</div>");
         }
 
-        $("#login").dialog("close");
-
+        $("#dialogoPrivado").dialog("destroy").remove();
+        $("#login").css("display", "none");
+        $("#priv").css("display", "block");
     };
     chatHub.client.onNewUserConnected=function(id, nombre) {
-        $("#usuarios").append("<li id='usuario-" + id + "'>" +
+        $("#usuarios").append("<li id='usuario-" + id + "' onclick='privado(\"" + id + "\")'>" +
                    nombre + "</li>");
         $("#mensajes").append("<div> Se ha conectado "+ nombre +"</div>");
     };
@@ -66,7 +81,15 @@ function registrarEventos() {
         };
 
     chatHub.client.enviarPrivado = function(id, nombre, mensaje) {
+        var texto;
+        if (nombre == miNombre) {
+            texto = "Tu dices " + mensaje;
 
+        } else {
+            texto = nombre + " dice " + mensaje;
+        }
+        $("#mensajesPrivado").append("<div>" + texto + "</div>");
+        $("#dialogoPrivado").dialog();
 
     };
 
