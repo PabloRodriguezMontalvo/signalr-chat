@@ -6,28 +6,26 @@ $(document).ready(function () {
 
    
 
-    $("#dialogoPrivado").dialog({
-        modal: true
-
-    });
+   
     
     registrarEventos();
 
     $.connection.hub.start().done(function() {
         
         registrarLlamadas();
+        bootbox.prompt("¿Como te llamas?", function (resultado) {
+            if (resultado != null) {
+                miNombre = resultado;
+                chatHub.server.conectar(miNombre);
+            }
+
+        });
     });
 });
 
 function registrarLlamadas() {
 
-    $("#btnRegistrar").click(function() {
-        miNombre = $("#txtLogin").val();
-        chatHub.server.conectar(miNombre);
-        
-    });
-
-    $("#btnEnviar").click(function() {
+   $("#btnEnviar").click(function() {
         var texto = $("#mensaje").val();
         chatHub.server.enviarMensaje(miNombre, texto);
         $("#mensaje").val("");
@@ -44,7 +42,7 @@ function registrarLlamadas() {
 function privado(id) {
     nPrivado = $("#usuario-" + id).html();
     $("#dialogoPrivado").dialog();
-    $("#mensajesPrivado").html("");
+   // $("#mensajesPrivado").html("");
 }
 function registrarEventos() {
 
@@ -60,9 +58,7 @@ function registrarEventos() {
                 " dice " + mensajes[j].Contenido + "</div>");
         }
 
-        $("#dialogoPrivado").dialog("destroy").remove();
-        $("#login").css("display", "none");
-        $("#priv").css("display", "block");
+     
     };
     chatHub.client.onNewUserConnected=function(id, nombre) {
         $("#usuarios").append("<li id='usuario-" + id + "' onclick='privado(\"" + id + "\")'>" +

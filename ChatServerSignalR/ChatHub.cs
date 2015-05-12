@@ -43,11 +43,11 @@ namespace ChatServerSignalR
             string origen = Context.ConnectionId;
 
             var usuarioOrigen = Usuarios.FirstOrDefault(o => o.Id == origen);
-            var usuarioDestino = Usuarios.FirstOrDefault(o => o.Id == destino);
+            var usuarioDestino = Usuarios.FirstOrDefault(o => o.Nombre == destino);
 
             if (usuarioOrigen != null && usuarioDestino != null)
             {
-                Clients.Client(destino).enviarPrivado(origen,
+                Clients.Client(usuarioDestino.Id).enviarPrivado(usuarioOrigen.Id,
                     usuarioOrigen.Nombre, mensaje);
 
                 Clients.Caller.enviarPrivado(destino,

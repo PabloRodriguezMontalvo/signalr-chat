@@ -4,11 +4,16 @@
     <title></title>
     <link href="css/estilo.css" rel="stylesheet"/>
     <link href="Scripts/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet" />
-
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap-theme.min.css" rel="stylesheet" />
     <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script src="Scripts/jquery.signalR-2.1.2.min.js"></script>
     <script src="Scripts/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-   <script src="/signalr/hubs"></script>
+    <script src="/signalr/hubs"></script>
+    
+    
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/bootbox.js"></script>
     <script src="Scripts/michat.js"></script>
 </head>
 <body>
@@ -25,18 +30,16 @@
 </div>
 
 <div id="dialogoPrivado">
-    <div id="priv" style="display: none;">
-        <div id="textosPrivado"></div>
+    <div id="textosPrivado">
+       
+
+    </div>
         <div id="mensajesPrivado">
-            <input type="text" id="txtPrivado" />
+            <input type="text" id="txtPrivado" placeholder="Hola" />
             <input type="button" id="btnEnviarPrivado" />
         </div>
-    </div>
-
-    <div id="login" >
-        <input type="text" id="txtLogin" placeholder="Tu nombre" />
-        <input type="button" id="btnRegistrar" value="Entrar" />
-    </div>
+   
+  
 </div>
 
 </body>
